@@ -8,7 +8,7 @@ Use clear kebab-case names:
 
 ```txt
 first-view-main.jpg
-logo-black.svg
+wagou-logo-black.png
 menu-saemidori.jpg
 concept-illustration.png
 ```

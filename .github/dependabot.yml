@@ -4,7 +4,15 @@ updates:
     directory: /
     schedule:
       interval: weekly
-    open-pull-requests-limit: 5
+      day: monday
+      time: "09:00"
+      timezone: Pacific/Auckland
+    open-pull-requests-limit: 3
+    groups:
+      npm-minor-and-patch:
+        update-types:
+          - minor
+          - patch
     labels:
       - type:chore
       - area:workflow
@@ -13,7 +21,15 @@ updates:
     directory: /
     schedule:
       interval: weekly
-    open-pull-requests-limit: 5
+      day: monday
+      time: "09:00"
+      timezone: Pacific/Auckland
+    open-pull-requests-limit: 2
+    groups:
+      github-actions-minor-and-patch:
+        update-types:
+          - minor
+          - patch
     labels:
       - type:ci
       - area:workflow

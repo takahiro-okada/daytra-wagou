@@ -26,13 +26,14 @@ The repository is intentionally structured to show a practical development workf
 
 ### 2. Design Implementation
 
-- Implement global design tokens and layout shell.
+- Implement global design tokens and asset strategy.
+- Implement layout shell and fixed navigation.
 - Implement first-view section.
 - Implement concept section.
 - Implement service section.
 - Implement menu section and modal behaviour.
-- Implement flow, blog, media, access, and footer sections.
-- Implement responsive header and floating reservation CTA.
+- Implement flow section.
+- Implement blog, media, access, and footer sections.
 
 ### 3. CMS Integration
 
@@ -63,3 +64,7 @@ The repository is intentionally structured to show a practical development workf
 - User accounts.
 - Multilingual content management.
 - Full automated visual regression testing.
+
+## Task Breakdown
+
+See [Task Breakdown](task-breakdown.md) for the implementation-ready issue order and branch naming plan.

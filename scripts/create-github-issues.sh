@@ -12,7 +12,7 @@ if ! gh auth status >/dev/null 2>&1; then
 fi
 
 if ! git remote get-url origin >/dev/null 2>&1; then
-  echo "No git remote named origin found. Create a GitHub repository and add it as origin first."
+  echo "No git remote named origin found. Add the GitHub repository as origin first."
   exit 1
 fi
 
@@ -33,10 +33,14 @@ create_issue() {
   local labels="$2"
   local body="$3"
 
-  gh issue create \
-    --title "$title" \
-    --label "$labels" \
-    --body "$body"
+  if gh issue list --state all --search "$title in:title" --json title --jq '.[].title' | grep -Fx "$title" >/dev/null; then
+    echo "Issue exists: $title"
+  else
+    gh issue create \
+      --title "$title" \
+      --label "$labels" \
+      --body "$body"
+  fi
 }
 
 echo "Creating labels..."
@@ -54,20 +58,183 @@ create_label "priority:medium" "FBCA04" "Medium priority"
 create_label "priority:low" "0E8A16" "Low priority"
 
 echo "Creating issues..."
-create_issue "Configure project documentation" "type:docs,area:workflow,priority:high" "Add English documentation for setup, workflow, Figma notes, CMS schema, deployment, and contribution rules."
-create_issue "Set up GitHub Actions CI" "type:ci,area:workflow,priority:high" "Add a CI workflow that runs install, lint, typecheck, and build on pull requests."
-create_issue "Add semantic pull request title workflow" "type:chore,area:workflow,priority:high" "Validate pull request titles using Conventional Commit style so squash merge history stays clean."
-create_issue "Define microCMS content model" "type:docs,area:cms,priority:medium" "Document the planned microCMS endpoints and fields before implementation."
-create_issue "Implement global design tokens" "type:feature,area:figma,area:ui,priority:high" "Add project-level colours, typography, spacing, and shared UI primitives based on the Figma design."
-create_issue "Implement first-view section" "type:feature,area:figma,area:ui,priority:high" "Build the responsive hero/first-view section from the desktop and mobile Figma frames."
-create_issue "Implement concept section" "type:feature,area:figma,area:ui,priority:high" "Build the concept section with text layout, images, and decorative assets."
-create_issue "Implement service section" "type:feature,area:figma,area:ui,priority:medium" "Build the service cards and tea meditation area."
-create_issue "Implement menu section with modal" "type:feature,area:figma,area:ui,priority:medium" "Build the menu grid and modal interaction for item details."
-create_issue "Implement remaining top page sections" "type:feature,area:figma,area:ui,priority:medium" "Build flow, blog, media, access, and footer sections."
-create_issue "Connect menu content to microCMS" "type:feature,area:cms,priority:medium" "Fetch menu cards and modal content from microCMS with local fallbacks."
-create_issue "Connect blog and media content to microCMS" "type:feature,area:cms,priority:medium" "Fetch blog cards and media list items from microCMS with local fallbacks."
-create_issue "Run responsive QA" "type:bug,area:ui,priority:high" "Check the site at mobile, tablet, and desktop widths and fix layout issues."
-create_issue "Prepare portfolio README" "type:docs,area:workflow,priority:medium" "Add screenshots, live demo link, implementation notes, and AI-assisted workflow notes."
-create_issue "Deploy to Vercel" "type:chore,area:workflow,priority:medium" "Configure production environment variables and verify the deployed site."
+create_issue "Implement design tokens and asset strategy" "type:feature,area:figma,area:ui,priority:high" "$(cat <<'BODY'
+Define colours, typography direction, section spacing, shared button styles, and how Figma assets will be stored.
+
+Branch: `feat/design-tokens`
+
+Acceptance criteria:
+- Project has reusable design tokens for Wagou colours.
+- Shared section and button styles are documented or implemented.
+- Figma asset handling strategy is documented.
+- `npm run lint`, `npm run typecheck`, and `npm run build` pass.
+BODY
+)"
+
+create_issue "Implement layout shell and fixed navigation" "type:feature,area:figma,area:ui,priority:high" "$(cat <<'BODY'
+Build the page shell, responsive header, hamburger entry point, and floating reservation CTA.
+
+Branch: `feat/layout-shell`
+
+Acceptance criteria:
+- Desktop and mobile navigation structure exists.
+- Floating reservation CTA behaviour is planned or implemented.
+- Layout does not block future section work.
+- Desktop and mobile screenshots are captured for review.
+BODY
+)"
+
+create_issue "Implement first-view section" "type:feature,area:figma,area:ui,priority:high" "$(cat <<'BODY'
+Build the responsive hero/first-view section from the desktop and mobile Figma frames.
+
+Branch: `feat/first-view`
+
+Figma references:
+- Desktop first-view: `594:802`
+- Mobile first-view: `612:1454`
+
+Acceptance criteria:
+- Hero image, logo placement, vertical copy, and slider dots are represented.
+- Desktop and mobile layouts match the Figma direction.
+- Assets have accessible `alt` text or are marked decorative.
+- Visual QA screenshots are added to the PR.
+BODY
+)"
+
+create_issue "Implement concept section" "type:feature,area:figma,area:ui,priority:high" "$(cat <<'BODY'
+Build the concept section with Japanese copy, organic images, and decorative illustration.
+
+Branch: `feat/concept-section`
+
+Figma references:
+- Desktop concept: `594:779`
+- Mobile concept: `612:1439`
+
+Acceptance criteria:
+- Text content is structured semantically.
+- Image positions and spacing are responsive.
+- Mobile layout remains readable.
+- Decorative assets do not harm accessibility.
+BODY
+)"
+
+create_issue "Implement service section" "type:feature,area:figma,area:ui,priority:medium" "$(cat <<'BODY'
+Build the service cards and tea meditation area.
+
+Branch: `feat/service-section`
+
+Figma reference:
+- Desktop service: `594:737`
+
+Acceptance criteria:
+- Service cards are reusable components.
+- Meditation cards are reusable components.
+- Buttons use shared styles.
+- Layout works across desktop and mobile.
+BODY
+)"
+
+create_issue "Implement menu section and modal UI" "type:feature,area:figma,area:ui,priority:medium" "$(cat <<'BODY'
+Build menu cards and the detail modal interaction before connecting CMS data.
+
+Branch: `feat/menu-modal`
+
+Figma reference:
+- Desktop menu: `594:674`
+
+Acceptance criteria:
+- Menu cards are generated from local data.
+- Detail modal opens and closes accessibly.
+- Modal content supports multiple menu items.
+- Keyboard and focus behaviour are considered.
+BODY
+)"
+
+create_issue "Implement tea production flow section" "type:feature,area:figma,area:ui,priority:medium" "$(cat <<'BODY'
+Build the horizontal/scrollable flow cards for the tea production process.
+
+Branch: `feat/flow-section`
+
+Figma reference:
+- Desktop flow: `594:649`
+
+Acceptance criteria:
+- Flow card component is reusable.
+- Desktop layout preserves the wide card rhythm.
+- Mobile layout is scrollable or stacked without overflow issues.
+- Slider UI is implemented or documented as a follow-up.
+BODY
+)"
+
+create_issue "Implement blog, media, access, and footer sections" "type:feature,area:figma,area:ui,priority:medium" "$(cat <<'BODY'
+Build the remaining top page sections with local data.
+
+Branch: `feat/supporting-sections`
+
+Figma references:
+- Blog: `594:629`
+- Media: `594:606`
+- Access: `594:597`
+
+Acceptance criteria:
+- Blog cards use reusable local data.
+- Media list uses reusable local data.
+- Access section includes address, phone, and map link.
+- Footer matches the site structure.
+BODY
+)"
+
+create_issue "Connect menu content to microCMS" "type:feature,area:cms,priority:medium" "$(cat <<'BODY'
+Replace local menu data with microCMS data while preserving fallback behaviour.
+
+Branch: `feat/cms-menu`
+
+Acceptance criteria:
+- Menu endpoint type is defined.
+- CMS fetch works when credentials exist.
+- Local fallback works when credentials are missing.
+- Build passes without production credentials.
+BODY
+)"
+
+create_issue "Connect blog and media content to microCMS" "type:feature,area:cms,priority:medium" "$(cat <<'BODY'
+Connect the blog and media sections to microCMS.
+
+Branch: `feat/cms-blog-media`
+
+Acceptance criteria:
+- Blog and media endpoint types are defined.
+- CMS fetch works with local fallbacks.
+- Empty states are handled.
+- Build passes without production credentials.
+BODY
+)"
+
+create_issue "Run responsive QA and accessibility pass" "type:bug,area:ui,priority:high" "$(cat <<'BODY'
+Review the implemented page across desktop, tablet, and mobile sizes.
+
+Branch: `fix/responsive-a11y-pass`
+
+Acceptance criteria:
+- No obvious text overlap.
+- Navigation and modal are keyboard usable.
+- Images have appropriate alt text.
+- Basic semantic structure is clear.
+- QA notes are added to the PR.
+BODY
+)"
+
+create_issue "Prepare deployment and portfolio README" "type:docs,area:workflow,priority:medium" "$(cat <<'BODY'
+Prepare the project for portfolio submission and deployment.
+
+Branch: `docs/portfolio-deployment`
+
+Acceptance criteria:
+- README includes screenshots and live demo link placeholders or final URLs.
+- Deployment notes are accurate.
+- Environment variable setup is documented.
+- The AI-assisted workflow is explained clearly.
+BODY
+)"
 
 echo "Done."

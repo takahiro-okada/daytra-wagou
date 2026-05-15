@@ -76,6 +76,7 @@ npm run build
 ## Documentation
 
 - [Project Plan](docs/project-plan.md)
+- [Task Breakdown](docs/task-breakdown.md)
 - [Figma Notes](docs/figma-notes.md)
 - [microCMS Schema](docs/cms-schema.md)
 - [GitHub Issue Plan](docs/github-issues.md)

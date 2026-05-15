@@ -33,6 +33,8 @@ Usually safe, but review release notes for framework packages such as Next.js, R
 
 Do not merge casually. Create a dedicated issue and migration branch.
 
+Major ESLint updates are ignored for now because `eslint-config-next` and its ecosystem plugins may lag behind the latest ESLint major. Revisit this after the Next.js linting stack officially supports the new major version.
+
 ## Why No Auto-Merge Yet?
 
 Auto-merge is useful once the project has stronger automated tests and visual checks. For now, manual review is better because this project is also a learning and portfolio project.

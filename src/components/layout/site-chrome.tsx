@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { wagouColors } from "@/lib/design-tokens";
 
@@ -12,15 +13,15 @@ const navigationItems = [
 
 function LogoMark({ compact = false }: { compact?: boolean }) {
   return (
-    <span
+    <Image
+      alt=""
       aria-hidden="true"
-      className={[
-        "grid place-items-center rounded-full border-2 border-dashed border-wagou-contrast wagou-serif text-wagou-contrast",
-        compact ? "size-16 text-[28px]" : "size-[90px] text-[38px]",
-      ].join(" ")}
-    >
-      茶
-    </span>
+      className={compact ? "size-16" : "size-[130px]"}
+      height={435}
+      priority={!compact}
+      src="/assets/figma/wagou-logo-black.png"
+      width={435}
+    />
   );
 }
 
@@ -67,28 +68,13 @@ export function SiteChrome() {
           <a
             aria-controls="site-menu"
             aria-label="Open navigation menu"
-            className="pointer-events-auto grid size-11 place-items-center rounded-full border border-wagou-contrast bg-wagou-base-body/80 backdrop-blur-sm transition hover:bg-wagou-white focus:outline-none focus:ring-2 focus:ring-wagou-primary"
+            className="pointer-events-auto grid size-11 place-items-center rounded-full border border-wagou-contrast bg-wagou-base-body/80 backdrop-blur-sm transition hover:bg-wagou-white focus:outline-none focus:ring-2 focus:ring-wagou-primary lg:hidden"
             href="#site-menu"
           >
             <HamburgerIcon />
           </a>
         </div>
       </header>
-
-      <nav
-        aria-label="Primary navigation"
-        className="fixed left-16 top-[260px] z-30 hidden lg:block"
-      >
-        <ul className="wagou-serif grid gap-5 text-[15px] leading-10 text-wagou-contrast">
-          {navigationItems.map((item) => (
-            <li key={item.href}>
-              <a className="transition hover:text-wagou-primary" href={item.href}>
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
 
       <div
         className="invisible pointer-events-none fixed inset-0 z-50 bg-wagou-base-body/95 px-8 py-8 opacity-0 backdrop-blur-md transition duration-200 target:visible target:pointer-events-auto target:opacity-100 lg:px-16"

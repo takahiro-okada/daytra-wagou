@@ -1,6 +1,6 @@
 # Building the Layout Shell Before the Hero Section
 
-After adding design tokens, I moved to the next issue: the layout shell and fixed navigation.
+After adding design tokens, I moved to the next issue: the layout shell and fixed navigation controls.
 
 I deliberately did not build the full first-view section yet. That will be a separate issue.
 
@@ -9,8 +9,7 @@ I deliberately did not build the full first-view section yet. That will be a sep
 This step adds the site chrome:
 
 - fixed logo area
-- desktop side navigation
-- mobile hamburger entry point
+- mobile hamburger menu entry point
 - full-screen navigation overlay
 - floating reservation CTA
 - skip link for accessibility
@@ -25,16 +24,18 @@ If I build all of that together with navigation, the pull request becomes too la
 
 So I split the work:
 
-1. layout shell and fixed navigation
+1. layout shell and fixed navigation controls
 2. first-view section
 
 This keeps each pull request focused.
 
 ## Figma reference
 
-For this task, I looked at the mobile first-view and the scroll-state note in Figma.
+For this task, I looked at the first-view and the scroll-state note in Figma.
 
-The key instruction is that the hamburger menu and reservation button should stay fixed across desktop and mobile.
+The key instruction is that the reservation button stays fixed, and that the hamburger/drawer pattern is needed for the mobile layout. After checking the Figma demo, I removed the desktop drawer entry because the PC layout does not need it.
+
+I also replaced the temporary text logo with the actual `logo-black` asset from Figma.
 
 ## Implementation note
 
@@ -50,4 +51,4 @@ The layout shell is not the most visually exciting part, but it shapes the whole
 
 By separating site chrome from page sections, the next tasks can focus on individual Figma sections without repeatedly changing navigation logic.
 
-I also learned that a visual browser check can catch layout issues that linting never will. In this case, the first version of the desktop side navigation overlapped the temporary hero heading, so I added desktop left spacing to reserve room for fixed navigation.
+I also learned that checking the actual Figma prototype matters. Static frame inspection made the desktop menu list look plausible, but the demo clarified that the drawer interaction belongs to the mobile layout only.

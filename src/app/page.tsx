@@ -33,7 +33,7 @@ export default async function Home() {
         id="main-content"
       >
         <section
-          className="mx-auto flex min-h-screen w-full max-w-[1320px] flex-col px-6 pb-6 pt-24 sm:px-10 lg:pl-[240px] lg:pr-16 lg:pt-6"
+          className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 pb-6 pt-24 sm:px-10 lg:pl-[192px] lg:pr-12 lg:pt-24"
           id="about"
         >
           <div className="grid flex-1 items-center gap-12 py-16 lg:grid-cols-[1.1fr_0.9fr]">

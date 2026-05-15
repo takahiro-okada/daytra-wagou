@@ -1,0 +1,26 @@
+name: Task
+description: Track documentation, CI, setup, or maintenance work.
+title: "[Task]: "
+labels: ["type:chore"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What needs to be done?
+    validations:
+      required: true
+  - type: textarea
+    id: checklist
+    attributes:
+      label: Checklist
+      placeholder: |
+        - [ ] Add...
+        - [ ] Verify...
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Add links, constraints, or follow-up work.

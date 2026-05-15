@@ -1,0 +1,35 @@
+name: Feature
+description: Plan a new implementation task or enhancement.
+title: "[Feature]: "
+labels: ["type:feature"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What should be built?
+      placeholder: Implement the first-view section from the Figma design.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: What must be true before this issue can be closed?
+      placeholder: |
+        - Matches the desktop Figma frame
+        - Matches the mobile Figma frame
+        - Passes lint, typecheck, and build
+    validations:
+      required: true
+  - type: textarea
+    id: design-reference
+    attributes:
+      label: Design Reference
+      description: Add Figma node IDs, screenshots, or notes.
+      placeholder: "Desktop: 594:802 / Mobile: 612:1454"
+  - type: textarea
+    id: implementation-notes
+    attributes:
+      label: Implementation Notes
+      description: Add technical constraints, CMS notes, or edge cases.

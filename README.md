@@ -78,6 +78,7 @@ npm run build
 - [Project Plan](docs/project-plan.md)
 - [Task Breakdown](docs/task-breakdown.md)
 - [Figma Notes](docs/figma-notes.md)
+- [Design System Notes](docs/design-system.md)
 - [microCMS Schema](docs/cms-schema.md)
 - [Dependency Updates](docs/dependency-updates.md)
 - [GitHub Issue Plan](docs/github-issues.md)

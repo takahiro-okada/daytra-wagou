@@ -1,19 +1,108 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f3ec;
-  --foreground: #201b17;
+  --wagou-primary: #047836;
+  --wagou-dot: #b6b9b0;
+  --wagou-white: #ffffff;
+  --wagou-contrast: #333333;
+  --wagou-accent: #8b1c1a;
+  --wagou-border: #939393;
+  --wagou-base-body: #f9f6f1;
+  --wagou-base-panel: #ffffff;
+  --wagou-shadow-card: 0 4px 20px rgb(134 134 134 / 25%);
+  --wagou-shadow-soft: 0 4px 12px rgb(169 169 169 / 25%);
+  --wagou-radius-card: 10px;
+  --wagou-radius-leaf-sm: 20px 1px 20px 1px;
+  --wagou-radius-leaf-md: 60px 10px 60px 10px;
+  --wagou-radius-leaf-lg: 100px 10px 100px 10px;
+  --font-serif-ja: "Noto Serif JP", "Yu Mincho", "YuMincho",
+    "Hiragino Mincho ProN", serif;
+  --background: var(--wagou-base-body);
+  --foreground: var(--wagou-contrast);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-wagou-primary: var(--wagou-primary);
+  --color-wagou-dot: var(--wagou-dot);
+  --color-wagou-white: var(--wagou-white);
+  --color-wagou-contrast: var(--wagou-contrast);
+  --color-wagou-accent: var(--wagou-accent);
+  --color-wagou-border: var(--wagou-border);
+  --color-wagou-base-body: var(--wagou-base-body);
+  --color-wagou-base-panel: var(--wagou-base-panel);
   --font-sans: var(--font-geist-sans);
+  --font-serif-ja: var(--font-serif-ja);
   --font-mono: var(--font-geist-mono);
+  --shadow-wagou-card: var(--wagou-shadow-card);
+  --shadow-wagou-soft: var(--wagou-shadow-soft);
+  --radius-wagou-card: var(--wagou-radius-card);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    text-rendering: optimizeLegibility;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+  }
+}
+
+@layer components {
+  .wagou-container {
+    width: min(100% - 40px, 984px);
+    margin-inline: auto;
+  }
+
+  .wagou-section {
+    padding-block: clamp(50px, 8vw, 100px);
+  }
+
+  .wagou-serif {
+    font-family: var(--font-serif-ja);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .wagou-button {
+    display: inline-flex;
+    min-height: 40px;
+    min-width: 200px;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--wagou-primary);
+    border-radius: var(--wagou-radius-leaf-sm);
+    padding: 8px 16px 10px;
+    background: var(--wagou-primary);
+    color: var(--wagou-white);
+    font-family: var(--font-serif-ja);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.55;
+    transition:
+      background-color 160ms ease,
+      color 160ms ease,
+      transform 160ms ease;
+  }
+
+  .wagou-button:hover {
+    transform: translateY(-1px);
+  }
+
+  .wagou-button-outline {
+    background: transparent;
+    color: var(--wagou-primary);
+  }
 }
